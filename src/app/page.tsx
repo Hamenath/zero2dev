@@ -3,6 +3,7 @@
 import Link from "next/link";
 import MonacoPlayground from "@/components/playground/MonacoPlayground";
 import CodeBlock from "@/components/tutorial/CodeBlock";
+import ResponsiveHeroBanner from "@/components/ui/responsive-hero-banner";
 import { useSearchStore } from "@/store/useSearchStore";
 import {
   BookOpen,
@@ -24,62 +25,11 @@ export default function HomePage() {
   const { openSearch } = useSearchStore();
 
   return (
-    <div className="space-y-24 pb-20">
+    <div className="space-y-16 pb-20">
       {/* HERO SECTION */}
-      <section className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 radial-glow">
-        <div className="max-w-5xl mx-auto text-center space-y-8">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>The Modern Open-Source Documentation Engine</span>
-          </div>
-
-          {/* Huge Typography Hero Heading */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight leading-[1.1] max-w-4xl mx-auto">
-            Learn. Build. Master. <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-blue-600 to-indigo-600">
-              Clean open-source documentation.
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg text-gray-500 max-w-2xl mx-auto font-normal leading-relaxed">
-            Zero accounts required. Zero paywalls. Zero ads. Pure developer documentation, interactive Monaco IDE execution, and step-by-step visual roadmaps.
-          </p>
-
-          {/* Search Trigger Bar */}
-          <div className="max-w-xl mx-auto pt-2">
-            <button
-              onClick={openSearch}
-              className="w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-white border border-black/10 shadow-lg hover:shadow-xl hover:border-blue-400 transition-all text-left text-gray-400 text-sm group"
-            >
-              <div className="flex items-center gap-3">
-                <Search className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
-                <span className="font-medium text-gray-500">
-                  Search documentation, tools, or press /
-                </span>
-              </div>
-              <div className="flex items-center gap-1 text-xs font-mono text-gray-400 bg-gray-100 px-2.5 py-1 rounded-lg border border-gray-200">
-                ⌘K
-              </div>
-            </button>
-          </div>
-
-          {/* Popular Tech Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-2 text-xs font-medium text-gray-600">
-            <span className="text-gray-400">Popular:</span>
-            {["HTML5", "CSS Grid", "JavaScript", "TypeScript", "React 19", "Next.js 16", "Python", "Rust"].map((tech) => (
-              <Link
-                key={tech}
-                href="/tutorials"
-                className="px-3 py-1 rounded-xl bg-gray-100/80 hover:bg-blue-50 hover:text-blue-600 border border-black/[0.04] transition-colors"
-              >
-                {tech}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <ResponsiveHeroBanner onSearchClick={openSearch} />
+      </div>
 
       {/* FEATURED TUTORIALS GRID */}
       <section className="max-w-[1700px] mx-auto px-6 sm:px-10 lg:px-12 space-y-8">
