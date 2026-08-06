@@ -27,7 +27,7 @@ export default function HomePage() {
   return (
     <div className="space-y-16 pb-20">
       {/* HERO SECTION */}
-      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      <div className="w-full">
         <ResponsiveHeroBanner onSearchClick={openSearch} />
       </div>
 
