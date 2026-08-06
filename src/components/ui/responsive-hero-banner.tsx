@@ -92,7 +92,6 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
           className="space-y-3"
         >
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight leading-[1.12]">
-            {titleLine1} <br />
             <span className="text-gray-900">{titleLine2}</span> <br />
             <span className="text-blue-600">{titleHighlight}</span>
           </h1>
