@@ -38,23 +38,25 @@ export default function CodeBlock({
   };
 
   const handleRunInMonaco = () => {
-    router.push(`/playground?code=${encodeURIComponent(code)}&lang=${language}`);
+    router.push(`/playground?lang=${language}`);
   };
 
   return (
     <div
-      className={`premium-card overflow-hidden my-6 border border-black/[0.08] transition-all ${
-        isFullscreen ? "fixed inset-4 z-50 shadow-2xl flex flex-col m-0" : ""
+      className={`glass-card overflow-hidden my-6 border border-white/20 shadow-2xl transition-all ${
+        isFullscreen ? "fixed inset-4 z-50 my-0 max-w-none bg-[#001D80]" : "relative"
       }`}
     >
       {/* Code Header Bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-gray-900 text-gray-300 text-xs font-mono">
+      <div className="bg-[#0022A3]/90 px-4 py-3 border-b border-white/15 flex items-center justify-between text-xs font-mono select-none">
         <div className="flex items-center gap-2">
-          <Code2 className="w-3.5 h-3.5 text-blue-400" />
-          <span className="font-semibold text-gray-200">{title}</span>
-          <span className="text-[10px] text-gray-500 uppercase bg-gray-800 px-2 py-0.5 rounded font-mono">
-            {language}
-          </span>
+          <div className="flex items-center gap-1.5 mr-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#CCFF00] inline-block" />
+          </div>
+          <Code2 className="w-4 h-4 text-[#CCFF00]" />
+          <span className="font-bold text-white truncate max-w-[200px] sm:max-w-xs">{title}</span>
         </div>
 
         {/* Action Controls */}
@@ -62,46 +64,46 @@ export default function CodeBlock({
           {allowRun && (
             <button
               onClick={handleRunInMonaco}
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-sans text-[11px] font-bold transition-colors"
+              className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#CCFF00] text-black font-extrabold text-[11px] hover:bg-white transition-colors shadow-sm"
+              title="Run live in Monaco Sandbox"
             >
-              <Play className="w-3 h-3 fill-white" /> Run in Monaco
+              <Play className="w-3 h-3 fill-black" />
+              <span>Run Live</span>
             </button>
           )}
 
           <button
             onClick={handleCopy}
-            className="p-1.5 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-            title="Copy Code"
+            className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            title="Copy snippet"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-[#CCFF00]" /> : <Copy className="w-3.5 h-3.5" />}
           </button>
 
           <button
             onClick={handleDownload}
-            className="p-1.5 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-            title="Download Code"
+            className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors hidden sm:inline-flex"
+            title="Download file"
           >
             <Download className="w-3.5 h-3.5" />
           </button>
 
           <button
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-1.5 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-            title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+            className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors hidden sm:inline-flex"
+            title="Toggle fullscreen"
           >
             {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
           </button>
         </div>
       </div>
 
-      {/* Code Text Area */}
-      <pre
-        className={`p-4 bg-gray-950 text-gray-100 font-mono text-xs overflow-x-auto leading-relaxed ${
-          isFullscreen ? "flex-1 overflow-y-auto" : "max-h-96"
-        }`}
-      >
-        <code>{code}</code>
-      </pre>
+      {/* Code Content Container */}
+      <div className="p-4 overflow-x-auto bg-[#001D80]/90 text-white font-mono text-xs leading-relaxed scrollbar-thin">
+        <pre>
+          <code>{code}</code>
+        </pre>
+      </div>
     </div>
   );
 }

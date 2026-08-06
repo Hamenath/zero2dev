@@ -6,7 +6,7 @@ import VsCodeExplorerSidebar from "@/components/layout/VsCodeExplorerSidebar";
 import TocRightSidebar from "@/components/layout/TocRightSidebar";
 import CodeBlock from "@/components/tutorial/CodeBlock";
 import { DOCUMENTATION_TREES } from "@/data/documentationTrees";
-import { Clock, User, CheckCircle2, AlertTriangle, Lightbulb, ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
+import { Clock, User, CheckCircle2, Lightbulb, ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
 
 export default function UniversalDocPage() {
   const params = useParams();
@@ -29,7 +29,7 @@ export default function UniversalDocPage() {
   const nextItem = currentIndex < allItems.length - 1 ? allItems[currentIndex + 1] : undefined;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen blue-grid-bg text-white">
       {/* Secondary Technology Switcher Header */}
       <DocTechNavbar activeTechId={tree.id} />
 
@@ -38,42 +38,42 @@ export default function UniversalDocPage() {
         {/* LEFT COLUMN: VS Code Explorer Sidebar */}
         <VsCodeExplorerSidebar tree={tree} activeSlug={slug} />
 
-        {/* CENTER COLUMN: Prose MDX Reader (75ch Max Width Container) */}
+        {/* CENTER COLUMN: Prose MDX Reader (85ch Max Width Container) */}
         <main className="flex-1 min-w-0 max-w-4xl mx-auto space-y-10">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <span>Documentation</span>
+          <div className="flex items-center gap-2 text-xs text-white/60 font-medium">
+            <span>Docs</span>
             <span>/</span>
-            <span className="capitalize">{tree.name}</span>
+            <span className="capitalize text-white/80">{tree.name}</span>
             <span>/</span>
-            <span className="text-gray-900 font-semibold">{currentItem.folderName}</span>
+            <span className="text-white font-semibold">{currentItem.folderName}</span>
             <span>/</span>
-            <span className="text-blue-600 font-bold">{currentItem.title}</span>
+            <span className="text-[#CCFF00] font-bold">{currentItem.title}</span>
           </div>
 
           {/* Hero Banner */}
-          <div className="space-y-4 pb-6 border-b border-black/[0.06]">
+          <div className="space-y-4 pb-6 border-b border-white/15">
             <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-              <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700">Official Specs</span>
-              <span className="flex items-center gap-1 text-gray-500"><Clock className="w-3.5 h-3.5" /> 8 min read</span>
-              <span className="flex items-center gap-1 text-gray-500"><User className="w-3.5 h-3.5" /> ZeroToDev Core</span>
+              <span className="px-3 py-1 rounded-full bg-[#CCFF00] text-black font-extrabold">Official Specs</span>
+              <span className="flex items-center gap-1 text-white/70"><Clock className="w-3.5 h-3.5 text-[#CCFF00]" /> 8 min read</span>
+              <span className="flex items-center gap-1 text-white/70"><User className="w-3.5 h-3.5 text-[#CCFF00]" /> ZeroToDev Core</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
               {currentItem.title}
             </h1>
 
-            <p className="text-base text-gray-600 leading-relaxed font-normal">
+            <p className="text-base text-white/80 leading-relaxed font-normal">
               Comprehensive, zero-clutter developer documentation and interactive live examples for {tree.name}.
             </p>
           </div>
 
           {/* Learning Objectives Box */}
-          <div className="p-6 rounded-2xl bg-blue-50/70 border border-blue-200/60 space-y-3">
-            <h3 className="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-blue-600" /> Learning Objectives
+          <div className="glass-card p-6 space-y-3 border-white/25">
+            <h3 className="text-xs font-black text-[#CCFF00] uppercase tracking-wider flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-[#CCFF00]" /> Learning Objectives
             </h3>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-blue-950 font-medium">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-white/90 font-medium">
               <li>• Understand core language semantics and architecture</li>
               <li>• Implement production-ready code patterns</li>
               <li>• Adhere to WCAG AA accessibility & performance standards</li>
@@ -81,10 +81,10 @@ export default function UniversalDocPage() {
             </ul>
           </div>
 
-          {/* PROSE READING AREA (75ch max-width for perfect reading ergonomics) */}
-          <article className="prose-reading space-y-8 text-sm text-gray-800 leading-relaxed">
+          {/* PROSE READING AREA */}
+          <article className="prose-reading space-y-8 text-sm text-white/90 leading-relaxed">
             <section id="introduction" className="space-y-4">
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+              <h2 className="text-2xl font-bold text-white tracking-tight">
                 Introduction & Technical Specs
               </h2>
               <p>
@@ -94,7 +94,7 @@ export default function UniversalDocPage() {
 
             {/* Interactive Code Example */}
             <section id="code-example" className="space-y-4">
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+              <h2 className="text-2xl font-bold text-white tracking-tight">
                 Production Code Example
               </h2>
               <p>
@@ -119,31 +119,31 @@ export default function UniversalDocPage() {
             </section>
 
             {/* Best Practice Box */}
-            <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200/60 space-y-2 text-xs text-emerald-950">
-              <h4 className="font-bold text-emerald-800 flex items-center gap-1.5">
-                <Lightbulb className="w-4 h-4 text-emerald-600" /> Best Practice
+            <div className="glass-card p-5 space-y-2 text-xs text-white">
+              <h4 className="font-bold text-[#CCFF00] flex items-center gap-1.5 text-sm">
+                <Lightbulb className="w-4 h-4 text-[#CCFF00]" /> Best Practice
               </h4>
-              <p>
+              <p className="text-white/80">
                 Always test your code across multiple viewports and respect user reduced-motion preferences in CSS (`prefers-reduced-motion: reduce`).
               </p>
             </div>
           </article>
 
           {/* Footer Navigation (Previous / Next) */}
-          <div className="pt-8 border-t border-black/[0.06] flex items-center justify-between gap-4 text-xs font-semibold">
+          <div className="pt-8 border-t border-white/15 flex items-center justify-between gap-4 text-xs font-bold">
             {prevItem ? (
               <a
                 href={`/docs/${tree.id}/${prevItem.slug}`}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
+                className="flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/20"
               >
-                <ArrowLeft className="w-4 h-4" /> Previous: {prevItem.title}
+                <ArrowLeft className="w-4 h-4 text-[#CCFF00]" /> Prev: {prevItem.title}
               </a>
             ) : <div />}
 
             {nextItem ? (
               <a
                 href={`/docs/${tree.id}/${nextItem.slug}`}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-md shadow-blue-500/20"
+                className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#CCFF00] hover:bg-white text-black transition-colors shadow-lg"
               >
                 Next: {nextItem.title} <ArrowRight className="w-4 h-4" />
               </a>

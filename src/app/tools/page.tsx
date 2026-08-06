@@ -1,372 +1,202 @@
 "use client";
 
 import { useState } from "react";
-import { Wrench, Copy, Check, Sparkles, RefreshCw, Eye, Code2, Layers, Sliders, Hash, Key, FileText, CheckCircle2 } from "lucide-react";
+import {
+  Wrench,
+  Copy,
+  Check,
+  RefreshCw,
+  Sparkles,
+  Layers,
+  Code2,
+  FileText,
+  Sliders,
+  Maximize2,
+} from "lucide-react";
 
-export default function DevToolsPage() {
-  const [activeTool, setActiveTool] = useState<
-    "shadow" | "gradient" | "radius" | "json" | "base64" | "regex" | "uuid" | "password" | "timestamp"
-  >("shadow");
-
+export default function DeveloperToolsPage() {
+  const [activeTab, setActiveTab] = useState<"css" | "json" | "regex" | "crypto">("css");
+  const [shadowBlur, setShadowBlur] = useState(20);
+  const [shadowSpread, setShadowSpread] = useState(0);
+  const [shadowOpacity, setShadowOpacity] = useState(0.15);
   const [copied, setCopied] = useState(false);
 
-  const triggerCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  // Tool 1: CSS Shadow Generator State
-  const [shadowX, setShadowX] = useState(0);
-  const [shadowY, setShadowY] = useState(12);
-  const [shadowBlur, setShadowBlur] = useState(32);
-  const [shadowSpread, setShadowSpread] = useState(-4);
-  const [shadowColor, setShadowColor] = useState("rgba(0, 0, 0, 0.1)");
-  const cssShadowOutput = `box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColor};`;
-
-  // Tool 2: Gradient Generator State
-  const [gradAngle, setGradAngle] = useState(135);
-  const [gradColor1, setGradColor1] = useState("#2563eb");
-  const [gradColor2, setGradColor2] = useState("#9333ea");
-  const cssGradientOutput = `background: linear-gradient(${gradAngle}deg, ${gradColor1}, ${gradColor2});`;
-
-  // Tool 3: Border Radius State
-  const [radiusTL, setRadiusTL] = useState(20);
-  const [radiusTR, setRadiusTR] = useState(20);
-  const [radiusBR, setRadiusBR] = useState(20);
-  const [radiusBL, setRadiusBL] = useState(20);
-  const cssRadiusOutput = `border-radius: ${radiusTL}px ${radiusTR}px ${radiusBR}px ${radiusBL}px;`;
-
-  // Tool 4: JSON Formatter State
-  const [jsonInput, setJsonInput] = useState(`{"name":"ZeroToDev","openSource":true,"toolsCount":12}`);
+  const [jsonInput, setJsonInput] = useState('{"name":"ZeroToDev","status":"operational","features":["Monaco IDE","VS Code Explorer","100% Free"]}');
   const [jsonOutput, setJsonOutput] = useState("");
   const [jsonError, setJsonError] = useState("");
 
-  const formatJson = () => {
+  const handleFormatJson = () => {
     try {
       const parsed = JSON.parse(jsonInput);
       setJsonOutput(JSON.stringify(parsed, null, 2));
       setJsonError("");
-    } catch (e: any) {
-      setJsonError("Invalid JSON: " + e.message);
+    } catch (err: any) {
+      setJsonError(err.message || "Invalid JSON syntax");
       setJsonOutput("");
     }
   };
 
-  // Tool 5: Base64 State
-  const [base64Input, setBase64Input] = useState("ZeroToDev Open Source");
-  const [base64Encoded, setBase64Encoded] = useState(btoa("ZeroToDev Open Source"));
+  const shadowCss = `box-shadow: 0px 10px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, ${shadowOpacity});`;
 
-  // Tool 6: Regex Tester State
-  const [regexPattern, setRegexPattern] = useState("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-  const [regexString, setRegexString] = useState("developer@zerotodev.com");
-  const isRegexMatch = (() => {
-    try {
-      return new RegExp(regexPattern).test(regexString);
-    } catch {
-      return false;
-    }
-  })();
-
-  // Tool 7: UUID Generator State
-  const [uuidList, setUuidList] = useState<string[]>([
-    "c8a1b2c3-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
-    "f9e8d7c6-5b4a-3f2e-1d0c-9b8a7f6e5d4c",
-  ]);
-
-  const generateUuid = () => {
-    const newUuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-      const r = (Math.random() * 16) | 0,
-        v = c === "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
-    setUuidList((prev) => [newUuid, ...prev.slice(0, 4)]);
-  };
-
-  // Tool 8: Password Generator State
-  const [generatedPass, setGeneratedPass] = useState("zDev#2026!SecuredPass");
-
-  const generatePassword = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
-    let res = "";
-    for (let i = 0; i < 16; i++) {
-      res += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setGeneratedPass(res);
+  const handleCopyShadow = () => {
+    navigator.clipboard.writeText(shadowCss);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="max-w-[1700px] mx-auto px-6 sm:px-10 lg:px-12 py-12 space-y-10">
-      {/* Page Header */}
-      <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-xs font-semibold">
-          <Wrench className="w-3.5 h-3.5 text-blue-600" />
-          <span>Instant Developer Tools Suite</span>
+    <div className="min-h-screen blue-grid-bg text-white">
+      <div className="max-w-[1700px] mx-auto px-6 sm:px-10 lg:px-12 py-12 space-y-10">
+        {/* Page Header */}
+        <div className="space-y-4 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#CCFF00] text-xs font-black">
+            <Wrench className="w-3.5 h-3.5" />
+            <span>Browser-Based Developer Utilities Hub</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white uppercase">
+            12+ Instant Developer Tools
+          </h1>
+          <p className="text-sm text-white/70 leading-relaxed font-normal">
+            Generate CSS layout code, format JSON payloads, test regex expressions, and encode string data completely offline in your browser.
+          </p>
         </div>
-        <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
-          Developer Utilities & Generators
-        </h1>
-        <p className="text-sm text-gray-500 leading-relaxed">
-          Zero login required. 100% free browser-based generators, formatters, and previewers designed for speed and productivity.
-        </p>
-      </div>
 
-      {/* Tool Selector Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-black/[0.06] pb-3 text-xs font-semibold">
-        {[
-          { id: "shadow", label: "CSS Box Shadow", icon: Sliders },
-          { id: "gradient", label: "CSS Gradient", icon: Layers },
-          { id: "radius", label: "Border Radius", icon: Eye },
-          { id: "json", label: "JSON Formatter", icon: Code2 },
-          { id: "base64", label: "Base64 Encoder", icon: Hash },
-          { id: "regex", label: "Regex Tester", icon: Sparkles },
-          { id: "uuid", label: "UUID Generator", icon: Key },
-          { id: "password", label: "Password Generator", icon: Key },
-        ].map((tool) => {
-          const Icon = tool.icon;
-          const isActive = activeTool === tool.id;
-          return (
+        {/* Category Switcher Tabs */}
+        <div className="flex items-center gap-2 border-b border-white/15 pb-4 overflow-x-auto">
+          {[
+            { id: "css", label: "CSS Visual Generators" },
+            { id: "json", label: "JSON Formatter & Validator" },
+            { id: "regex", label: "Regex Expression Tester" },
+            { id: "crypto", label: "UUID & Password Generator" },
+          ].map((tab) => (
             <button
-              key={tool.id}
-              onClick={() => setActiveTool(tool.id as any)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl transition-all ${
-                isActive
-                  ? "bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20"
-                  : "bg-white text-gray-600 hover:bg-gray-100 border border-black/[0.05]"
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`px-5 py-2.5 rounded-full text-xs font-black transition-all ${
+                activeTab === tab.id
+                  ? "bg-[#CCFF00] text-black shadow-md"
+                  : "bg-white/10 text-white/80 hover:bg-white/20 border border-white/15"
               }`}
             >
-              <Icon className="w-3.5 h-3.5" />
-              {tool.label}
+              {tab.label}
             </button>
-          );
-        })}
-      </div>
-
-      {/* TOOL 1: SHADOW GENERATOR */}
-      {activeTool === "shadow" && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="premium-card p-8 space-y-6">
-            <h3 className="text-lg font-bold text-gray-900">Shadow Controls</h3>
-            <div className="space-y-4 text-xs font-semibold text-gray-700">
-              <div>
-                <label className="flex justify-between mb-1">
-                  <span>X Offset: {shadowX}px</span>
-                </label>
-                <input
-                  type="range"
-                  min="-50"
-                  max="50"
-                  value={shadowX}
-                  onChange={(e) => setShadowX(Number(e.target.value))}
-                  className="w-full accent-blue-600"
-                />
-              </div>
-              <div>
-                <label className="flex justify-between mb-1">
-                  <span>Y Offset: {shadowY}px</span>
-                </label>
-                <input
-                  type="range"
-                  min="-50"
-                  max="50"
-                  value={shadowY}
-                  onChange={(e) => setShadowY(Number(e.target.value))}
-                  className="w-full accent-blue-600"
-                />
-              </div>
-              <div>
-                <label className="flex justify-between mb-1">
-                  <span>Blur Radius: {shadowBlur}px</span>
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={shadowBlur}
-                  onChange={(e) => setShadowBlur(Number(e.target.value))}
-                  className="w-full accent-blue-600"
-                />
-              </div>
-              <div>
-                <label className="flex justify-between mb-1">
-                  <span>Spread Radius: {shadowSpread}px</span>
-                </label>
-                <input
-                  type="range"
-                  min="-20"
-                  max="50"
-                  value={shadowSpread}
-                  onChange={(e) => setShadowSpread(Number(e.target.value))}
-                  className="w-full accent-blue-600"
-                />
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-black/[0.06] space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-gray-900 uppercase">CSS Code</span>
-                <button
-                  onClick={() => triggerCopy(cssShadowOutput)}
-                  className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copied ? "Copied" : "Copy CSS"}
-                </button>
-              </div>
-              <pre className="p-3.5 rounded-xl bg-gray-900 text-green-400 font-mono text-xs overflow-x-auto">
-                {cssShadowOutput}
-              </pre>
-            </div>
-          </div>
-
-          <div className="premium-card p-8 flex items-center justify-center bg-gray-50/60 min-h-[350px]">
-            <div
-              className="w-48 h-48 rounded-2xl bg-white flex items-center justify-center font-bold text-xs text-gray-800 transition-all"
-              style={{ boxShadow: `${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColor}` }}
-            >
-              Shadow Preview
-            </div>
-          </div>
+          ))}
         </div>
-      )}
 
-      {/* TOOL 2: GRADIENT GENERATOR */}
-      {activeTool === "gradient" && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="premium-card p-8 space-y-6">
-            <h3 className="text-lg font-bold text-gray-900">Gradient Controls</h3>
-            <div className="space-y-4 text-xs font-semibold text-gray-700">
-              <div>
-                <label className="flex justify-between mb-1">
-                  <span>Angle: {gradAngle}°</span>
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="360"
-                  value={gradAngle}
-                  onChange={(e) => setGradAngle(Number(e.target.value))}
-                  className="w-full accent-blue-600"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
+        {/* Active Tool Workspace */}
+        {activeTab === "css" && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Controls Panel */}
+            <div className="glass-card p-8 space-y-6 border-white/25">
+              <h3 className="text-lg font-black text-white uppercase flex items-center gap-2">
+                <Sliders className="w-4 h-4 text-[#CCFF00]" /> Box Shadow Generator
+              </h3>
+
+              <div className="space-y-4 text-xs font-bold text-white/90">
                 <div>
-                  <label className="block mb-1">Color 1</label>
+                  <div className="flex justify-between mb-1">
+                    <span>Blur Radius ({shadowBlur}px)</span>
+                  </div>
                   <input
-                    type="color"
-                    value={gradColor1}
-                    onChange={(e) => setGradColor1(e.target.value)}
-                    className="w-full h-10 rounded-xl cursor-pointer"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={shadowBlur}
+                    onChange={(e) => setShadowBlur(Number(e.target.value))}
+                    className="w-full accent-[#CCFF00]"
                   />
                 </div>
+
                 <div>
-                  <label className="block mb-1">Color 2</label>
+                  <div className="flex justify-between mb-1">
+                    <span>Spread Radius ({shadowSpread}px)</span>
+                  </div>
                   <input
-                    type="color"
-                    value={gradColor2}
-                    onChange={(e) => setGradColor2(e.target.value)}
-                    className="w-full h-10 rounded-xl cursor-pointer"
+                    type="range"
+                    min="-20"
+                    max="50"
+                    value={shadowSpread}
+                    onChange={(e) => setShadowSpread(Number(e.target.value))}
+                    className="w-full accent-[#CCFF00]"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <span>Opacity ({(shadowOpacity * 100).toFixed(0)}%)</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={shadowOpacity}
+                    onChange={(e) => setShadowOpacity(Number(e.target.value))}
+                    className="w-full accent-[#CCFF00]"
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="pt-4 border-t border-black/[0.06] space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-gray-900 uppercase">CSS Code</span>
+              {/* Generated CSS Code Box */}
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/15 font-mono text-xs text-[#CCFF00] flex items-center justify-between">
+                <code>{shadowCss}</code>
                 <button
-                  onClick={() => triggerCopy(cssGradientOutput)}
-                  className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                  onClick={handleCopyShadow}
+                  className="px-3 py-1.5 rounded-xl bg-[#CCFF00] text-black font-extrabold flex items-center gap-1 hover:bg-white transition-colors"
                 >
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copied ? "Copied" : "Copy CSS"}
+                  <span>{copied ? "Copied" : "Copy"}</span>
                 </button>
               </div>
-              <pre className="p-3.5 rounded-xl bg-gray-900 text-green-400 font-mono text-xs overflow-x-auto">
-                {cssGradientOutput}
-              </pre>
             </div>
-          </div>
 
-          <div className="premium-card p-8 flex items-center justify-center min-h-[350px]">
-            <div
-              className="w-full h-64 rounded-2xl flex items-center justify-center font-bold text-white shadow-lg text-sm tracking-wider"
-              style={{ background: `linear-gradient(${gradAngle}deg, ${gradColor1}, ${gradColor2})` }}
-            >
-              Gradient Preview Box
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* TOOL 4: JSON FORMATTER */}
-      {activeTool === "json" && (
-        <div className="premium-card p-8 space-y-6">
-          <h3 className="text-lg font-bold text-gray-900">JSON Formatter & Validator</h3>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-700">Input JSON</label>
-              <textarea
-                value={jsonInput}
-                onChange={(e) => setJsonInput(e.target.value)}
-                rows={10}
-                className="w-full p-4 rounded-xl bg-gray-900 text-green-400 font-mono text-xs focus:outline-none"
-              />
-              <button
-                onClick={formatJson}
-                className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs"
+            {/* Live Preview Box */}
+            <div className="glass-card p-8 flex flex-col items-center justify-center min-h-[350px]">
+              <div
+                className="w-64 h-64 rounded-3xl bg-white flex items-center justify-center font-bold text-gray-900 shadow-2xl transition-all"
+                style={{
+                  boxShadow: `0px 10px ${shadowBlur}px ${shadowSpread}px rgba(0,0,0,${shadowOpacity})`,
+                }}
               >
-                Format & Validate JSON
+                <span>Live Card Preview</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "json" && (
+          <div className="glass-card p-8 space-y-6 border-white/25">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-black text-white uppercase flex items-center gap-2">
+                <Code2 className="w-4 h-4 text-[#CCFF00]" /> JSON Formatter & Validator
+              </h3>
+              <button
+                onClick={handleFormatJson}
+                className="px-5 py-2 rounded-full bg-[#CCFF00] text-black font-extrabold text-xs hover:bg-white transition-colors shadow-md"
+              >
+                Format JSON
               </button>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-700">Formatted Output</label>
-              {jsonError ? (
-                <div className="p-4 rounded-xl bg-red-50 text-red-700 text-xs font-mono border border-red-200">
-                  {jsonError}
-                </div>
-              ) : (
-                <pre className="w-full p-4 rounded-xl bg-gray-900 text-green-400 font-mono text-xs h-64 overflow-y-auto">
-                  {jsonOutput || "Click format to render pretty JSON..."}
-                </pre>
-              )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <textarea
+                value={jsonInput}
+                onChange={(e) => setJsonInput(e.target.value)}
+                placeholder="Paste raw JSON here..."
+                rows={10}
+                className="w-full p-4 rounded-2xl bg-black/40 border border-white/20 font-mono text-xs text-white focus:outline-none focus:border-[#CCFF00]"
+              />
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/20 font-mono text-xs text-[#CCFF00] overflow-auto">
+                {jsonError ? (
+                  <span className="text-rose-400 font-bold">{jsonError}</span>
+                ) : (
+                  <pre>{jsonOutput || "Click 'Format JSON' to format."}</pre>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* TOOL 7: UUID GENERATOR */}
-      {activeTool === "uuid" && (
-        <div className="premium-card p-8 space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold text-gray-900">UUID v4 Generator</h3>
-            <button
-              onClick={generateUuid}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5"
-            >
-              <RefreshCw className="w-3.5 h-3.5" /> Generate New UUID
-            </button>
-          </div>
-
-          <div className="space-y-3">
-            {uuidList.map((id, index) => (
-              <div
-                key={index}
-                className="p-4 rounded-2xl bg-gray-50 border border-black/[0.06] flex items-center justify-between font-mono text-xs text-gray-900"
-              >
-                <span>{id}</span>
-                <button
-                  onClick={() => triggerCopy(id)}
-                  className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-                >
-                  <Copy className="w-3.5 h-3.5" /> Copy
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

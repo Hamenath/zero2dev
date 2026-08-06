@@ -49,21 +49,21 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
   const renderContent = () => (
     <div className="space-y-4">
       {/* VS Code Explorer Header */}
-      <div className="space-y-3 pb-3 border-b border-black/[0.05]">
+      <div className="space-y-3 pb-3 border-b border-white/15">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div
               className="w-3 h-3 rounded-full shrink-0"
               style={{ backgroundColor: tree.color }}
             />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900 truncate">
+            <h3 className="text-xs font-black uppercase tracking-wider text-[#CCFF00] truncate">
               {tree.name} Explorer
             </h3>
           </div>
           {mobileExplorerOpen && (
             <button
               onClick={() => setMobileExplorerOpen(false)}
-              className="lg:hidden p-1 rounded-lg hover:bg-gray-100 text-gray-500"
+              className="lg:hidden p-1 rounded-lg hover:bg-white/10 text-white/70"
             >
               <X className="w-4 h-4" />
             </button>
@@ -72,13 +72,13 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
 
         {/* Search Input Filter */}
         <div className="relative">
-          <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-white/50 absolute left-2.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={filterQuery}
             onChange={(e) => setFilterQuery(e.target.value)}
             placeholder={`Search ${tree.name}...`}
-            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-gray-50 border border-black/[0.06] text-gray-900 focus:outline-none focus:border-blue-500 font-medium"
+            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-[#CCFF00] font-medium"
           />
         </div>
       </div>
@@ -98,24 +98,24 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
               {/* Folder Node */}
               <button
                 onClick={() => toggleFolder(folder.id)}
-                className="w-full flex items-center justify-between py-1 px-1.5 rounded-lg text-gray-700 hover:bg-gray-100/70 transition-colors text-left"
+                className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg text-white/80 hover:bg-white/10 transition-colors text-left font-sans font-bold"
               >
                 <div className="flex items-center gap-1.5 truncate">
                   {isOpen ? (
-                    <ChevronDown className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                    <ChevronDown className="w-3.5 h-3.5 text-white/50 shrink-0" />
                   ) : (
-                    <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 text-white/50 shrink-0" />
                   )}
                   {isOpen ? (
-                    <FolderOpen className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                    <FolderOpen className="w-3.5 h-3.5 text-[#CCFF00] shrink-0" />
                   ) : (
-                    <Folder className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <Folder className="w-3.5 h-3.5 text-[#CCFF00] shrink-0" />
                   )}
-                  <span className="font-bold font-sans text-xs text-gray-800">{folder.name}</span>
+                  <span className="text-xs text-white">{folder.name}</span>
                 </div>
               </button>
 
-              {/* Collapsible Children File Nodes with Framer Motion Animation */}
+              {/* Collapsible Children File Nodes */}
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
@@ -123,7 +123,7 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="overflow-hidden space-y-0.5 pl-5 border-l border-black/[0.06] ml-2"
+                    className="overflow-hidden space-y-0.5 pl-4 border-l border-white/15 ml-2"
                   >
                     {filteredItems.map((item) => {
                       const isActive = activeSlug === item.slug;
@@ -132,21 +132,21 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
                           key={item.slug}
                           href={`/docs/${tree.id}/${item.slug}`}
                           onClick={() => setMobileExplorerOpen(false)}
-                          className={`flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-sans font-medium transition-all ${
+                          className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-sans font-medium transition-all ${
                             isActive
-                              ? "bg-blue-50 text-blue-600 font-bold border border-blue-200/60 shadow-sm"
-                              : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                              ? "bg-[#CCFF00] text-black font-extrabold shadow-sm"
+                              : "text-white/80 hover:text-white hover:bg-white/10"
                           }`}
                         >
                           <div className="flex items-center gap-2 truncate min-w-0">
                             {item.completed ? (
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                              <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-black" : "text-[#CCFF00]"}`} />
                             ) : (
-                              <FileCode className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-blue-600" : "text-gray-400"}`} />
+                              <FileCode className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-black" : "text-white/50"}`} />
                             )}
                             <span className="truncate">{item.title}</span>
                           </div>
-                          <span className="text-[10px] text-gray-400 font-normal shrink-0 ml-1">
+                          <span className={`text-[10px] font-normal shrink-0 ml-1 ${isActive ? "text-black/70" : "text-white/50"}`}>
                             {item.duration}
                           </span>
                         </Link>
@@ -165,7 +165,7 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="w-80 shrink-0 hidden lg:block sticky top-24 h-[calc(100vh-6.5rem)] overflow-y-auto pr-4 space-y-4 border-r border-black/[0.05] select-none">
+      <aside className="w-80 shrink-0 hidden lg:block sticky top-28 h-[calc(100vh-7rem)] overflow-y-auto pr-4 space-y-4 border-r border-white/15 select-none">
         {renderContent()}
       </aside>
 
@@ -173,9 +173,9 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
       <div className="lg:hidden fixed bottom-6 left-6 z-40">
         <button
           onClick={() => setMobileExplorerOpen(true)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-gray-900 text-white font-bold text-xs shadow-xl active:scale-95 transition-transform"
+          className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#CCFF00] text-black font-black text-xs shadow-2xl active:scale-95 transition-transform"
         >
-          <Layers className="w-4 h-4 text-blue-400" />
+          <Layers className="w-4 h-4 text-black" />
           <span>Docs Explorer</span>
         </button>
       </div>
@@ -190,7 +190,7 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileExplorerOpen(false)}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/60 backdrop-blur-md"
             />
             {/* Drawer */}
             <motion.div
@@ -198,7 +198,7 @@ export default function VsCodeExplorerSidebar({ tree, activeSlug }: VsCodeExplor
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="relative w-80 max-w-[85vw] bg-white h-full p-5 overflow-y-auto shadow-2xl z-10"
+              className="relative w-80 max-w-[85vw] bg-[#0038FF] text-white h-full p-5 overflow-y-auto shadow-2xl z-10 border-r border-white/20"
             >
               {renderContent()}
             </motion.div>
