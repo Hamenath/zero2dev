@@ -1,176 +1,180 @@
 "use client";
 
 import React from "react";
-
-interface Partner {
-  logoUrl: string;
-  href: string;
-}
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Search, Sparkles, ArrowRight, BookOpen, ChevronDown, CheckCircle2, ShieldCheck, Heart } from "lucide-react";
 
 interface ResponsiveHeroBannerProps {
-  backgroundImageUrl?: string;
   badgeText?: string;
-  badgeLabel?: string;
-  title?: string;
+  titleLine1?: string;
   titleLine2?: string;
+  titleHighlight?: string;
   description?: string;
   primaryButtonText?: string;
   primaryButtonHref?: string;
   secondaryButtonText?: string;
   secondaryButtonHref?: string;
-  partnersTitle?: string;
-  partners?: Partner[];
+  searchPlaceholder?: string;
+  trustLine1?: string;
+  trustLine2?: string;
   onSearchClick?: () => void;
 }
 
 const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
-  backgroundImageUrl = "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0e2dbea0-c0a9-413f-a57b-af279633c0df_3840w.jpg",
-  badgeLabel = "100% Free",
-  badgeText = "Open-Source Documentation & Learning Engine 2026",
-  title = "Learn. Build. Master.",
-  titleLine2 = "Clean Open-Source Docs",
+  badgeText = "100% Free • Open Source • Community Driven",
+  titleLine1 = "Learn. Build. Master.",
+  titleLine2 = "The Modern Engine for",
+  titleHighlight = "Open-Source Developer Docs",
   description = "Zero accounts required. Zero paywalls. Zero ads. Pure developer documentation, interactive Monaco IDE execution, and step-by-step visual roadmaps.",
-  primaryButtonText = "Explore Tutorials",
-  primaryButtonHref = "/tutorials",
-  secondaryButtonText = "Launch IDE Sandbox",
-  secondaryButtonHref = "/playground",
-  partnersTitle = "Trusted by software engineers & open-source contributors worldwide",
-  partners = [
-    { logoUrl: "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/f7466370-2832-4fdd-84c2-0932bb0dd850_800w.png", href: "#" },
-    { logoUrl: "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0a9a71ec-268b-4689-a510-56f57e9d4f13_1600w.png", href: "#" },
-    { logoUrl: "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/a9ed4369-748a-49f8-9995-55d6c876bbff_1600w.png", href: "#" },
-    { logoUrl: "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0d8966a4-8525-4e11-9d5d-2d7390b2c798_1600w.png", href: "#" },
-    { logoUrl: "https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/2ed33c8b-b8b2-4176-967f-3d785fed07d8_1600w.png", href: "#" },
-  ],
+  primaryButtonText = "Start Learning",
+  primaryButtonHref = "/docs/html/introduction",
+  secondaryButtonText = "Explore Documentation",
+  secondaryButtonHref = "/tutorials",
+  searchPlaceholder = "Search tutorials, references, examples...",
+  trustLine1 = "Trusted by developers, students, and open-source contributors worldwide.",
+  trustLine2 = "1000+ tutorials • Interactive examples • Modern documentation • Forever free",
   onSearchClick,
 }) => {
   return (
-    <section className="w-full isolate min-h-[92vh] overflow-hidden relative flex flex-col justify-center">
-      <img
-        src={backgroundImageUrl}
-        alt="Hero Background"
-        className="w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-black/55 backdrop-blur-[2px]" />
+    <section className="relative w-full overflow-hidden bg-white text-gray-900 pt-20 pb-24 md:pt-28 md:pb-32 flex flex-col items-center justify-center">
+      {/* 1. Ambient Background Grid Pattern (Low Opacity) */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-      <div className="z-10 relative pt-20 sm:pt-24 pb-12">
-        <div className="max-w-[1700px] mx-auto px-6 sm:px-10 lg:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full bg-white/10 px-3.5 py-2 ring-1 ring-white/20 backdrop-blur-md animate-fadeSlideIn">
-              <span className="inline-flex items-center text-xs font-bold text-neutral-900 bg-white rounded-full py-0.5 px-2.5 font-sans">
-                {badgeLabel}
-              </span>
-              <span className="text-sm font-medium text-white/90 font-sans">
-                {badgeText}
-              </span>
-            </div>
+      {/* 2. Soft Ambient Blur Mesh Glow Behind Heading */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-blue-100/60 via-indigo-100/40 to-sky-100/60 blur-[100px] rounded-full pointer-events-none" />
 
-            <h1 className="sm:text-6xl md:text-7xl lg:text-8xl leading-none text-4xl text-white tracking-tight font-extrabold animate-fadeSlideIn">
-              {title}
-              <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-purple-300">
-                {titleLine2}
-              </span>
-            </h1>
+      {/* 3. Floating Geometric Ambient Shapes */}
+      <motion.div
+        animate={{ y: [0, -12, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-20 left-[10%] hidden lg:flex items-center justify-center w-12 h-12 rounded-2xl bg-white shadow-xl border border-black/[0.06] text-blue-600"
+      >
+        <BookOpen className="w-5 h-5" />
+      </motion.div>
 
-            <p className="sm:text-lg text-base text-white/80 max-w-2xl mt-6 mx-auto leading-relaxed animate-fadeSlideIn">
-              {description}
-            </p>
+      <motion.div
+        animate={{ y: [0, 14, 0], rotate: [0, -6, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute top-28 right-[12%] hidden lg:flex items-center justify-center w-12 h-12 rounded-2xl bg-white shadow-xl border border-black/[0.06] text-indigo-600"
+      >
+        <Sparkles className="w-5 h-5" />
+      </motion.div>
 
-            {/* Quick Search Bar Trigger inside Hero */}
-            {onSearchClick && (
-              <div className="mt-8 max-w-lg mx-auto">
-                <button
-                  onClick={onSearchClick}
-                  className="w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 hover:border-white/40 text-left text-white/80 text-sm transition-all shadow-xl group"
-                >
-                  <div className="flex items-center gap-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-white/60 group-hover:text-white transition-colors"
-                    >
-                      <circle cx="11" cy="11" r="8" />
-                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                    <span>Search 100+ documentation guides, tools, or press /</span>
-                  </div>
-                  <kbd className="px-2 py-0.5 text-xs font-mono bg-white/20 rounded border border-white/20 text-white font-bold">
-                    ⌘K
-                  </kbd>
-                </button>
-              </div>
-            )}
+      <motion.div
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="absolute bottom-24 left-[14%] hidden xl:flex items-center justify-center w-10 h-10 rounded-xl bg-white shadow-lg border border-black/[0.06] text-emerald-600"
+      >
+        <ShieldCheck className="w-4 h-4" />
+      </motion.div>
 
-            <div className="flex flex-col sm:flex-row sm:gap-4 mt-8 gap-3 items-center justify-center animate-fadeSlideIn">
-              <a
-                href={primaryButtonHref}
-                className="inline-flex items-center gap-2 hover:bg-white text-sm font-bold text-neutral-900 bg-white shadow-xl rounded-full py-3.5 px-7 font-sans transition-all hover:scale-105"
-              >
-                {primaryButtonText}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4"
-                >
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </a>
-              <a
-                href={secondaryButtonHref}
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 ring-1 ring-white/20 backdrop-blur-md px-7 py-3.5 text-sm font-semibold text-white font-sans transition-colors"
-              >
-                {secondaryButtonText}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-4 h-4"
-                >
-                  <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
-                </svg>
-              </a>
-            </div>
+      {/* 4. Main Hero Container (Centered, Max Width 1100px) */}
+      <div className="relative z-10 max-w-[1100px] mx-auto px-6 text-center space-y-10">
+        {/* Premium Glass Hero Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="inline-flex items-center"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-black/[0.08] shadow-sm backdrop-blur-md text-xs font-semibold text-gray-700">
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+            <span>{badgeText}</span>
           </div>
+        </motion.div>
 
-          <div className="mx-auto mt-16 max-w-5xl">
-            <p className="text-xs text-white/60 text-center font-medium tracking-wider uppercase">
-              {partnersTitle}
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 text-white/70 mt-6 items-center justify-items-center gap-4">
-              {partners.map((partner, index) => (
-                <a
-                  key={index}
-                  href={partner.href}
-                  className="inline-flex items-center justify-center bg-center w-[120px] h-[36px] bg-cover rounded-full opacity-70 hover:opacity-100 transition-opacity"
-                  style={{ backgroundImage: `url(${partner.logoUrl})` }}
-                />
-              ))}
+        {/* Heading Typography (Max 3 lines with single accent color) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="space-y-3"
+        >
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight leading-[1.12]">
+            {titleLine1} <br />
+            <span className="text-gray-900">{titleLine2}</span> <br />
+            <span className="text-blue-600">{titleHighlight}</span>
+          </h1>
+
+          {/* Subtitle / Description (~60-65 chars per line readability) */}
+          <p className="max-w-[65ch] mx-auto text-base sm:text-lg text-gray-500 font-normal leading-relaxed pt-2">
+            {description}
+          </p>
+        </motion.div>
+
+        {/* Primary Interactive Element: Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          className="max-w-xl mx-auto"
+        >
+          <button
+            onClick={onSearchClick}
+            className="w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-white border border-black/10 shadow-lg hover:shadow-xl hover:border-blue-500/50 transition-all text-left group cursor-pointer"
+          >
+            <div className="flex items-center gap-3.5">
+              <Search className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors shrink-0" />
+              <span className="text-sm font-medium text-gray-500 group-hover:text-gray-800 transition-colors truncate">
+                {searchPlaceholder}
+              </span>
             </div>
-          </div>
-        </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <kbd className="px-2.5 py-1 text-xs font-mono font-bold text-gray-400 bg-gray-100 rounded-lg border border-gray-200">
+                ⌘K
+              </kbd>
+            </div>
+          </button>
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2"
+        >
+          <Link
+            href={primaryButtonHref}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          >
+            {primaryButtonText}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href={secondaryButtonHref}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl bg-gray-50 hover:bg-gray-100 border border-black/[0.08] text-gray-800 font-semibold text-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+          >
+            {secondaryButtonText}
+          </Link>
+        </motion.div>
+
+        {/* Trust Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+          className="pt-6 space-y-1.5 border-t border-black/[0.06] max-w-lg mx-auto"
+        >
+          <p className="text-xs font-semibold text-gray-600">
+            {trustLine1}
+          </p>
+          <p className="text-[11px] text-gray-400 font-medium">
+            {trustLine2}
+          </p>
+        </motion.div>
       </div>
+
+      {/* 5. Elegant Scroll Indicator */}
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="mt-16 flex flex-col items-center gap-1 text-gray-400"
+      >
+        <span className="text-[10px] uppercase font-bold tracking-widest text-gray-400">Scroll to explore</span>
+        <ChevronDown className="w-4 h-4" />
+      </motion.div>
     </section>
   );
 };
