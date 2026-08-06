@@ -14,7 +14,7 @@ export default function OpenSourcePage() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <div className="max-w-[1700px] mx-auto px-6 sm:px-10 lg:px-12 py-12 space-y-12">
       {/* Hero Banner */}
       <div className="premium-card p-10 md:p-14 bg-gradient-to-r from-gray-900 via-gray-900 to-blue-950 text-white space-y-6 relative overflow-hidden">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/30 text-xs font-semibold">

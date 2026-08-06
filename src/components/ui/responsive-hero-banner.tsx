@@ -53,8 +53,8 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
       />
       <div className="pointer-events-none absolute inset-0 bg-black/55 backdrop-blur-[2px]" />
 
-      <div className="z-10 relative pt-24 sm:pt-32 pb-16">
-        <div className="max-w-7xl mx-auto px-6">
+      <div className="z-10 relative pt-20 sm:pt-24 pb-12">
+        <div className="max-w-[1700px] mx-auto px-6 sm:px-10 lg:px-12">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 inline-flex items-center gap-3 rounded-full bg-white/10 px-3.5 py-2 ring-1 ring-white/20 backdrop-blur-md animate-fadeSlideIn">
               <span className="inline-flex items-center text-xs font-bold text-neutral-900 bg-white rounded-full py-0.5 px-2.5 font-sans">
