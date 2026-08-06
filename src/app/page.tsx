@@ -3,8 +3,7 @@
 import Link from "next/link";
 import MonacoPlayground from "@/components/playground/MonacoPlayground";
 import CodeBlock from "@/components/tutorial/CodeBlock";
-import ResponsiveHeroBanner from "@/components/ui/responsive-hero-banner";
-import { useSearchStore } from "@/store/useSearchStore";
+import { ZeroToDevHero } from "@/components/ui/hero";
 import {
   BookOpen,
   Map,
@@ -22,13 +21,11 @@ import {
 } from "lucide-react";
 
 export default function HomePage() {
-  const { openSearch } = useSearchStore();
-
   return (
     <div className="space-y-16 pb-20">
       {/* HERO SECTION */}
       <div className="w-full">
-        <ResponsiveHeroBanner onSearchClick={openSearch} />
+        <ZeroToDevHero />
       </div>
 
       {/* FEATURED TUTORIALS GRID */}
@@ -50,49 +47,81 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
-              title: "HTML5 & Web Semantics",
-              desc: "Document architecture, WCAG AA accessibility, forms, and ARIA attributes.",
-              slug: "html5-document-structure",
-              tag: "Frontend",
+              title: "HTML5 Document Standards",
+              tech: "HTML5",
+              desc: "Modern semantic tags, WCAG AA accessibility, forms, and web APIs.",
+              slug: "html5-basics",
+              icon: BookOpen,
+              level: "Beginner",
+              duration: "45 mins",
             },
             {
-              title: "CSS Modern Layouts & Grid",
-              desc: "2D CSS Grid, flexbox alignment, container queries, and subgrid specs.",
-              slug: "css-flexbox-grid-guide",
-              tag: "CSS Engine",
+              title: "CSS Grid & Flexbox Mastery",
+              tech: "CSS3",
+              desc: "Complete guide to 1D and 2D responsive layout design systems.",
+              slug: "css-grid-flexbox",
+              icon: Layers,
+              level: "Beginner",
+              duration: "60 mins",
             },
             {
-              title: "Modern JavaScript Mastery",
-              desc: "Event loop mechanics, Promises, async/await, closures, and ES Modules.",
-              slug: "javascript-event-loop-async",
-              tag: "Core JS",
+              title: "Modern Async JavaScript",
+              tech: "JavaScript",
+              desc: "Promises, Async/Await, Event Loop mechanics, and Fetch API.",
+              slug: "javascript-async",
+              icon: Code2,
+              level: "Intermediate",
+              duration: "75 mins",
             },
-          ].map((item, i) => (
-            <Link
-              key={i}
-              href={`/tutorials/${item.slug}`}
-              className="premium-card p-6 flex flex-col justify-between group hover:border-blue-400 transition-all space-y-6"
-            >
-              <div className="space-y-3">
-                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">
-                  {item.tag}
-                </span>
-                <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
-              </div>
+            {
+              title: "React 19 Server Components",
+              tech: "React 19",
+              desc: "Server Actions, use() hook, streaming Suspense, and client boundary rules.",
+              slug: "react19-server-components",
+              icon: Sparkles,
+              level: "Advanced",
+              duration: "90 mins",
+            },
+          ].map((tutorial) => {
+            const Icon = tutorial.icon;
+            return (
+              <Link
+                key={tutorial.slug}
+                href="/docs/html/introduction"
+                className="premium-card p-6 flex flex-col justify-between group hover:border-blue-400 transition-all space-y-6"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg uppercase">
+                      {tutorial.tech}
+                    </span>
+                  </div>
 
-              <div className="pt-4 border-t border-black/[0.05] flex justify-end">
-                <span className="text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                  Read Documentation <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </Link>
-          ))}
+                  <div>
+                    <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                      {tutorial.title}
+                    </h3>
+                    <p className="text-xs text-gray-500 mt-2 leading-relaxed">
+                      {tutorial.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-black/[0.05] flex items-center justify-between text-xs text-gray-400 font-medium">
+                  <span>{tutorial.level}</span>
+                  <span className="text-blue-600 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                    Start <ArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -148,21 +177,32 @@ export default function HomePage() {
             Community Driven
           </span>
           <h2 className="text-3xl font-extrabold text-gray-900">
-            100% Free & Open Source Forever
+            Open Source & Built for Everyone
           </h2>
-          <p className="text-xs text-gray-500 max-w-lg mx-auto">
-            ZeroToDev is built transparently by hundreds of open source contributors worldwide under the MIT license.
-          </p>
         </div>
 
-        <div className="flex items-center justify-center gap-4">
-          <Link
-            href="/open-source"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gray-900 text-white font-bold text-xs hover:bg-black transition-colors"
-          >
-            <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
-            View Open Source GitHub Hub
-          </Link>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+          <div className="premium-card p-6 space-y-2">
+            <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+            <h4 className="font-bold text-gray-900">No Account Required</h4>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Open the website and start reading or writing code instantly without signups or passwords.
+            </p>
+          </div>
+          <div className="premium-card p-6 space-y-2">
+            <Heart className="w-6 h-6 text-rose-600" />
+            <h4 className="font-bold text-gray-900">Zero Ads & Paywalls</h4>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              No tracking, zero popups, zero corporate banners, and no premium tiers.
+            </p>
+          </div>
+          <div className="premium-card p-6 space-y-2">
+            <Users className="w-6 h-6 text-blue-600" />
+            <h4 className="font-bold text-gray-900">Global Contributors</h4>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Built transparently under MIT license by software engineers worldwide.
+            </p>
+          </div>
         </div>
       </section>
     </div>
