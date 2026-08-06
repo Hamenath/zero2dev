@@ -211,46 +211,8 @@ export const ZeroToDevHero = () => {
             </div>
           </div>
 
-          {/* Absolute Overlays (Glass Cards, Hand-Drawn Arrows, Spinning Badge) */}
+          {/* Absolute Overlays (Hand-Drawn Arrows, Spinning Badge) */}
           <div className="absolute inset-0 w-full h-full pointer-events-none">
-            {/* Floating Glass Card 1 (Bottom Left) */}
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[8%] left-[2%] md:left-[15%] z-30 pointer-events-auto"
-            >
-              <Link href="/docs/html/introduction">
-                <div className="w-40 md:w-52 aspect-[3/3.5] bg-white/20 backdrop-blur-md border border-white/40 rounded-[2rem] p-5 flex flex-col items-center justify-center rotate-[-12deg] shadow-2xl hover:rotate-0 transition-transform duration-500 cursor-pointer">
-                  <div className="w-14 h-14 md:w-20 md:h-20 bg-[#CCFF00] rounded-full flex items-center justify-center mb-3 shadow-inner border-[3px] border-white/50 text-black">
-                    <BookOpen className="w-8 h-8 stroke-[2.5]" />
-                  </div>
-                  <div className="text-center">
-                    <p className="font-extrabold text-xs md:text-sm text-white">HTML & CSS Docs</p>
-                    <p className="text-[10px] md:text-xs text-[#CCFF00] font-bold mt-1">100% Free • No Login</p>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-
-            {/* Floating Glass Card 2 (Top Right) */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute top-[12%] right-[2%] md:right-[18%] z-30 pointer-events-auto"
-            >
-              <Link href="/playground">
-                <div className="w-40 md:w-52 aspect-[3/3.5] bg-white/20 backdrop-blur-md border border-white/40 rounded-[2rem] p-5 flex flex-col items-center justify-center rotate-[12deg] shadow-2xl hover:rotate-0 transition-transform duration-500 cursor-pointer">
-                  <div className="w-14 h-14 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center mb-3 shadow-inner border-[3px] border-white/50 text-[#0038FF]">
-                    <Terminal className="w-8 h-8 stroke-[2.5]" />
-                  </div>
-                  <div className="text-center">
-                    <p className="font-extrabold text-xs md:text-sm text-white">Monaco IDE Sandbox</p>
-                    <p className="text-[10px] md:text-xs text-[#CCFF00] font-bold mt-1">Live JS & Python</p>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-
             {/* Decorative Arrow Left */}
             <div className="absolute bottom-[0%] left-[0%] md:left-[8%] w-20 h-20 md:w-28 md:h-28 z-20 hidden sm:block">
               <ArrowGreenLeft />
